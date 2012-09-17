@@ -1,0 +1,227 @@
+\documentclass{article}
+\title{Automatic Heuristic Generation on Random Graphs}
+\author{Niklas Ulvinge  \\
+	Georgia Tech  \\
+	\and 
+	Andrew Pruett \\
+	Georgia Tech \\
+	}
+
+\date{\today}
+% the \maketitle command MUST come AFTER the \begin{document} command! 
+\begin{document}
+
+\maketitle
+
+\section{Problem}
+Trying an automatic heuristic generator algorithm on a random graph game is
+hopefully simpler and more successful that it was on the comparatively 
+more highly structured grid based games like checkers, chess, and othello for 
+which it was originally conceived.
+
+\section{Related Work}
+Minimax using a good heuristic results in a good player for grid based 
+games. There has been some work on general game agents trying
+to find good heuristics automatically when playing based strictly on the
+rules of the game. Are these learning techniques generalizable to graph 
+based games? Will the work for a simple game called Cops and Robbers?
+In this game, agents alternate single edge moves on a connected graph. When
+the cop catches the robber, that is a win for the cop. If the robber doesn't
+get caught, that is a win for the robber. It is a very simple game, and we plan to find out whether simple game rules
+input to the automatic algorithm get good evaluation functions.
+
+\subsection{Types of Graphs}
+A planar connected graph can be drawn in two dimensions with no edges
+intersecting. A non planar graph cannot be drawn on paper without an 
+intersecting pair of edges. Non planar graphs occur in social networks,
+dependencies of systems, and VLSI planning. A critical non planar graph is
+such that if one vertex is removed it becomes a planar graph.
+
+\subsection{An obvious proof in planar Cops and Robbers}
+There is proof that 3 cops will always beat 1 robber on a planar graph. When
+allowing a multiplicity of cops, how many cops does it take to be unbeatable
+on a random non planar connected graph? Arbitrary many cops are needed to 
+win on a nonplanar graph, but given enough cops, can a game agent group figure out a 
+cheap way to locate and divide a random nonplanar graph into the fewest 
+largest planar subgraphs so the cops can guarantee a cop win with the fewest
+cops? Probably not, because the maximal subgraph problem is NP-complete. The
+famous linear time algorithm may work well for gameplay though, since it has
+a random element. However, this random element may ruin the automatic heuristic
+generation algorithm. These are some other interesting side items we could
+encounter.
+
+\section{Implementation}
+Using the C language, we will implement pointer based graph data structures
+based on two possible implementations: adjacency lists and edge matrices. We will
+attempt a general play algorithm for Cops and Robbers with perfect information
+from the rules analysis technique of Kuhlmann and Stone.
+We intend to generate random graphs and evaluate the playing performance 
+of a simple SLD heuristic against the automatically discovered heuristic against
+a baseline of randomly moving agents.
+Graph generation will be tunable for three parameters: vertices, edges, and 
+max edges. This allows us to tune the branching factor for the usual effect 
+using MINIMAX as in AIMA Russell and Norvig. It also lets us set the planar vs.
+nonplanar condition.
+
+\section{Evaluation}
+We will compare a randomly moving agent and a straight line distance heuristic
+and a automatically generated heuristic with each other in simulations on the 
+same graphs for a variety of graph complexities. We will look for improvement 
+above the random mover baseline.
+
+\begin{thebibliography}{9}
+\end{thebibliography}
+
+\end{document}
+
+% bibliography
+
+@article{RN21562553820070101,
+Author = {Clune, J.},
+Journal = {PROCEEDINGS OF THE NATIONAL CONFERENCE ON ARTIFICIAL INTELLIGENCE},
+Pages = {1134 - 1139},
+Title = {Heuristic Evaluation Functions for General Game Playing.},
+Volume = {CONF 22},
+URL = {http://prx.library.gatech.edu/login?url=https://search-ebscohost-com.prx.library.gatech.edu/login.aspx?direct=true&db=edsbl&AN=RN215625538&site=eds-live&scope=site},
+Year = {2007},
+}
+@article{RN19254217020060101,
+Author = {Kuhlmann, G. and Stone, P.},
+Journal = {PROCEEDINGS OF THE NATIONAL CONFERENCE ON ARTIFICIAL INTELLIGENCE},
+Pages = {1457 - 1462},
+Title = {Automatic Heuristic Construction in a Complete General Game Player.},
+Volume = {21},
+URL = {http://prx.library.gatech.edu/login?url=https://search-ebscohost-com.prx.library.gatech.edu/login.aspx?direct=true&db=edsbl&AN=RN192542170&site=eds-live&scope=site},
+Year = {2006},
+}
+@inproceedings{CN03983389020010101,
+Author = {Kask, K. and Dechter, R.},
+Booktitle = {ARTIFICIAL INTELLIGENCE -AMSTERDAM- ELSEVIER},
+Edition = {129},
+Pages = {91 - 132},
+Series = {Heuristic search in artificial intelligence},
+Title = {A general scheme for automatic generation of search heuristics from specification dependencies.},
+Volume = {129},
+URL = {http://prx.library.gatech.edu/login?url=https://search-ebscohost-com.prx.library.gatech.edu/login.aspx?direct=true&db=edsbl&AN=CN039833890&site=eds-live&scope=site},
+Year = {2001},
+}
+@article{000170226600003n.d.,
+Abstract = {This manuscript presents a heuristic algorithm based on geometric concepts for the problem of finding a path composed of line segments from a given origin to a given destination in the presence of polygonal obstacles. The basic idea involves constructing circumscribing triangles around the obstacles to be avoided. Our heuristic algorithm considers paths composed primarily of line segments corresponding to partial edges of these circumscribing triangles, and uses a simple branch-and-bound procedure to find a relatively short path of this type. This work was motivated by the military planning problem of developing mission plans for cruise missiles, but is applicable to any two-dimensional path-planning problem involving obstacles.},
+Author = {Helgason, RV and Kennington, JL and Lewis, KR},
+ISSN = {13811231},
+Journal = {JOURNAL OF HEURISTICS},
+Keywords = {military mission planning, search algorithms, path algorithms, COMPUTER SCIENCE, ARTIFICIAL INTELLIGENCE, COMPUTER SCIENCE, THEORY & METHODS},
+Number = {5},
+Pages = {473 - 494},
+Title = {Cruise missile mission planning: A heuristic algorithm for automatic path generation.},
+Volume = {7},
+URL = {http://prx.library.gatech.edu/login?url=https://search-ebscohost-com.prx.library.gatech.edu/login.aspx?direct=true&db=edswsc&AN=000170226600003&site=eds-live&scope=site},
+Year = {n.d.},
+}
+@article{S0166218X10002337n.d.,
+Abstract = {We theoretically analyze the ‘cops and robber’ game for the first time in a multidimensional grid. It is shown that in an n-dimensional grid, at least n cops are necessary if one wants to catch the robber for all possible initial configurations. We also present a set of cop strategies for which n cops are provably sufficient to catch the robber. Further, we revisit the game in a two-dimensional grid and provide an independent proof of the fact that the robber can be caught even by a single cop under certain conditions.},
+Author = {Sayan, Bhattacharya and Goutam, Paul and Swagato, Sanyal},
+ISSN = {0166-218X},
+Journal = {Discrete Applied Mathematics},
+Keywords = {Cops and robber, Game, Graph, Grid, Winning strategy},
+Pages = {1745 - 1751},
+Title = {A cops and robber game in multidimensional grids.},
+Volume = {158},
+URL = {http://prx.library.gatech.edu/login?url=https://search-ebscohost-com.prx.library.gatech.edu/login.aspx?direct=true&db=edselp&AN=S0166218X10002337&site=eds-live&scope=site},
+Year = {n.d.},
+}
+@article{S0012365X08005785n.d.,
+Abstract = {The games considered are mixtures of Searching and Cops and Robber. The cops have partial information provided via witnesses who report “sightings” of the robber. The witnesses are able to provide information about the robber’s position but not the direction in which he is moving. The robber has perfect information. In the case when sightings occur at regular intervals, we present a recognition theorem for graphs on which a single cop suffices to guarantee a win. In a special case, this recognition theorem provides a characterization.},
+Author = {Nancy E., Clarke},
+ISSN = {0012-365X},
+Journal = {Discrete Mathematics},
+Keywords = {Cop, Partial information, Witness, Pursuit, Structure},
+Pages = {3292 - 3298},
+Title = {A witness version of the Cops and Robber game.},
+Volume = {309},
+URL = {http://prx.library.gatech.edu/login?url=https://search-ebscohost-com.prx.library.gatech.edu/login.aspx?direct=true&db=edselp&AN=S0012365X08005785&site=eds-live&scope=site},
+Year = {n.d.},
+}
+@article{S0304397508001564n.d.,
+Abstract = {We investigate the role of the information available to the players on the outcome of the cops and robbers game. This game takes place on a graph and players move along the edges in turns. The cops win the game if they can move onto the robber’s vertex. In the standard formulation, it is assumed that the players can “see” each other at all times. A graph G is called cop-win if a single cop can capture the robber on G. We study the effect of reducing the cop’s visibility. On the positive side, with a simple argument, we show that a cop with small or no visibility can capture the robber on any cop-win graph (even if the robber still has global visibility). On the negative side, we show that the reduction in cop’s visibility can result in an exponential increase in the capture time. Finally, we start the investigation of the variant where the visibility powers of the two players are symmetrical. We show that the cop can establish eye contact with the robber on any graph and present a suf},
+Author = {Volkan, Isler and Nikhil, Karnad},
+ISSN = {0304-3975},
+Journal = {Theoretical Computer Science},
+Keywords = {Pursuit evasion games, Limited visibility, Greedy strategy},
+Number = {Graph Searching},
+Pages = {179 - 190},
+Title = {The role of information in the cop-robber game.},
+Volume = {399},
+URL = {http://prx.library.gatech.edu/login?url=https://search-ebscohost-com.prx.library.gatech.edu/login.aspx?direct=true&db=edselp&AN=S0304397508001564&site=eds-live&scope=site},
+Year = {n.d.},
+}
+@article{S0012365X06003554n.d.,
+Abstract = {We give an algorithmic characterisation of finite cop-win digraphs. The case of k>1 cops and k⩾l⩾1 robbers is then reduced to the one cop case. Similar characterisations are also possible in many situations where the movements of the cops and/or the robbers are somehow restricted.},
+Author = {Geňa, Hahn and Gary, MacGillivray},
+ISSN = {0012-365X},
+Journal = {Discrete Mathematics},
+Keywords = {Pursuit, Cop-win, Copnumber, [formula omitted]-Cop-win, Graph, Digraph},
+Number = {Creation and Recreation: A Tribute to the Memory of Claude Berge},
+Pages = {2492 - 2497},
+Title = {A note on k-cop, l-robber games on graphs.},
+Volume = {306},
+URL = {http://prx.library.gatech.edu/login?url=https://search-ebscohost-com.prx.library.gatech.edu/login.aspx?direct=true&db=edselp&AN=S0012365X06003554&site=eds-live&scope=site},
+Year = {n.d.},
+}
+@inproceedings{CN08107683120120101,
+Author = {Samal, R. and Stolar, R. and Valla, T.},
+Booktitle = {LECTURE NOTES IN COMPUTER SCIENCE},
+Number = {7147},
+Pages = {361 - 373},
+Series = {Current trends in theory and practice of computer science; SOFSEM 2012},
+Title = {Complexity of the Cop and Robber Guarding Game.},
+URL = {http://prx.library.gatech.edu/login?url=https://search-ebscohost-com.prx.library.gatech.edu/login.aspx?direct=true&db=edsbl&AN=CN081076831&site=eds-live&scope=site},
+Year = {2012},
+}
+@article{5716506020110204,
+Abstract = {Abstract: A cop–robber guarding game is played by the robber-player and the cop-player on a graph with a partition and of the vertex set. The robber-player starts the game by placing a robber (her pawn) on a vertex in , followed by the cop-player who places a set of cops (her pawns) on some vertices in . The two players take turns in moving their pawns to adjacent vertices in . The cop-player moves the cops within to prevent the robber-player from moving the robber to any vertex in . The robber-player wins if it gets a turn to move the robber onto a vertex in on which no cop situates, and the cop-player wins otherwise. The problem is to find the minimum number of cops that admits a winning strategy to the cop-player. It has been shown that the problem is polynomially solvable if induces a path, whereas it is NP-complete if induces a tree. In this paper, we show that the problem remains NP-complete even if induces a 3-star and that the problem is polynomially solvable if induces a cycl},
+Author = {Nagamochi, Hiroshi},
+ISSN = {03043975},
+Journal = {Theoretical Computer Science},
+Keywords = {COMPUTER games, VIDEO gamers, GRAPH algorithms, POLYNOMIALS, SOLVABLE groups, PATHS & cycles (Graph theory)},
+Number = {4/5},
+Pages = {383 - 390},
+Title = {Cop–robber guarding game with cycle robber-region.},
+Volume = {412},
+URL = {http://prx.library.gatech.edu/login?url=https://search-ebscohost-com.prx.library.gatech.edu/login.aspx?direct=true&db=syh&AN=57165060&site=eds-live&scope=site},
+Year = {2011},
+}
+@article{1105.285120110513,
+Abstract = {We consider a variant of the Cops and Robber game, in which the robber has unbounded speed, i.e. can take any path from her vertex in her turn, but she is not allowed to pass through a vertex occupied by a cop. Let c_{infty}(G) denote the number of cops needed to capture the robber in a graph G in this variant. We characterize graphs G with c_{infty}(G)=1, and give an O(|V(G)|^2) algorithm for their detection. We prove a lower bound for c_{infty} of expander graphs, and use it to prove three things. The first is that if np > 4.2 log n then the random graph G = G(n,p) asymptotically almost surely has e1/p < c_{infty}(G) < e2 log (np)/p, for suitable constants e1 and e2. The second is that a fixed-degree random regular graph G with n vertices asymptotically almost surely has c_{infty}(G) = Theta(n). The third is that if G is a Cartesian product of m paths, then n / 4km^2 < c_{infty}(G) < n / k, where n=|V(G)| and k is the number of vertices of the longest path.},
+Author = {Mehrabian, Abbas},
+Keywords = {Mathematics - Combinatorics, 05C57},
+Title = {Cops and Robber Game with a Fast Robber on Expander Graphs and Random Graphs.},
+URL = {http://prx.library.gatech.edu/login?url=https://search-ebscohost-com.prx.library.gatech.edu/login.aspx?direct=true&db=edsarx&AN=1105.2851&site=eds-live&scope=site},
+Year = {2011},
+}
+@inproceedings{CN08110922720110101,
+Author = {Samal, R. and Stolar, R. and Valla, T.},
+Booktitle = {LECTURE NOTES IN COMPUTER SCIENCE},
+Number = {7056},
+Pages = {361 - 373},
+Series = {Combinatorial algorithms IWOCA},
+Title = {Complexity of the Cop and Robber Guarding Game.},
+URL = {http://prx.library.gatech.edu/login?url=https://search-ebscohost-com.prx.library.gatech.edu/login.aspx?direct=true&db=edsbl&AN=CN081109227&site=eds-live&scope=site},
+Year = {2011},
+}
+@article{edsoai.69108909020090101,
+Abstract = {We theoretically analyze the Cops and Robber Game for the first time in a multidimensional grid. It is shown that for an $n$-dimensional grid, at least $n$ cops are necessary to ensure capture of the robber. We also present a set of cop strategies for which $n$ cops are provably sufficient to catch the robber. Further, for two-dimensional grid, we provide an efficient cop strategy for which the robber is caught even by a single cop under certain conditions.; Comment: This is a revised and extended version of the poster paper with the same title that has been presented in the 8th Asian Symposium on Computer Mathematics (ASCM), December 15-17, 2007, Singapore},
+Keywords = {Computer Science - Discrete Mathematics; text},
+Title = {On Necessary and Sufficient Number of Cops in the Game of Cops and Robber in Multidimensional Grids.},
+URL = {http://prx.library.gatech.edu/login?url=https://search-ebscohost-com.prx.library.gatech.edu/login.aspx?direct=true&db=edsoai&AN=edsoai.691089090&site=eds-live&scope=site},
+Year = {2009},
+}
+@book{edshlc.012904817-820110101,
+Author = {Bonato, Anthony and Nowakowski, Richard J.},
+ISBN = {9780821853474},
+Publisher = {Providence, R.I. : American Mathematical Society, c2011.},
+Series = {Student mathematical library: v. 61},
+Title = {The game of cops and robbers on graphs / Anthony Bonato, Richard J. Nowakowski.},
+URL = {http://prx.library.gatech.edu/login?url=https://search-ebscohost-com.prx.library.gatech.edu/login.aspx?direct=true&db=edshlc&AN=edshlc.012904817-8&site=eds-live&scope=site},
+Year = {2011},
+}
