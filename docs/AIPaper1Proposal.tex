@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage[margin=0.750in]{geometry}
+\title{Automatic Heuristic Generation on Random Graphs}
+\author{Niklas Ulvinge  \\
+	Georgia Tech  \\
+	\and 
+	Andrew Pruett \\
+	Georgia Tech \\
+	}
+
+\date{\today}
+% the \maketitle command MUST come AFTER the \begin{document} command! 
+\begin{document}
+\bibliographystyle{acm}
+
+\maketitle
+
+\section{Problem}
+Minmax using a good heuristic results in a good player for grid based games. There has been some work on general game playing agents ([1] and [2]) trying to find good heuristics automatically. Are these techniques generalizable to non planar graphs?
+A non planar graph is a graph that cannot be drawn without the edges intersecting. Non planar graphs occur in social networks, dependencies of systems, and networks. Are these heuristics useful for these kind of graphs? What (possibly real-world) games can be played on these graphs? Are there any heuristics that are good independent of the graph?
+A possible game is a marketing game, where each player can convince one vertex of an idea, and a vertex with more than half its vertices also becomes convinced. After 50 moves, the player with the most convinced vertices wins.
+\section{Related Work}
+\cite{Clune2007} and \cite{Kuhlmann2006}  have implemented automatic heuristic discovery from a description of a game. However, they only evaluated grid-based games or games based on planar grids. \cite{Aigner1984} proves that for a game of cops and robbers on a planar graph, 3 cops always win. Arbitrary many cops are needed to win in a non-planar graph. This suggests that the same rules do not apply for nonplanar graphs. \cite{Berlekamp2001} solved tic-tac-toe on some hypercubes, using similar techniques for solving as the 3D and 2D version did.
+
+\section{Implementation and Evaluation} 
+We will generate random graphs (possibly with random rules) that the players get to play on. We will do empirical trials with the heuristics discovered using \cite{Clune2007} or \cite{Kuhlmann2006} and compare those to random, or simpler heuristics. We will do the same for planar graphs and compare the results, since we are interested in how the different graph classes compare.
+
+\bibliography{References}
+\end{document}
+
+One of the alg disc papers, how they did it was that they houd a set of features, then theuy found the most stable set of features. Then they used these, enumerated the features.
+They would run the game a lot of times. and certain features lead to more likely wins. For example, in othello its good to be along the edge.
+
+Our paper will be about that, but in a non planar graph.
+
+3n cops and robbers, needing
+
+Can we do this, because the features are less information rich, harder to find, harder to calculate. In a planar graph you can easily calculate distances. If you do a depth first search randomly, there is no A*.
+
+Within this framework, we will implement a few games. One of these could be CandR. Another could be a very simple market game, find the nodes with the most edges. The simple rules for this game is: be in a friend network. If more than half of your friends are convinced, you will accept the idea. It's kind of like game of life with no dying, or like a model of reputation. Another is like Isolation with King* moves.
+
+Calculable features of nonplanar graphs: number of inner edges, number of outer edges. minimum distance to the opponent.
+
+\section{Implementation}
+Simulate game play based on the same techniques in the paper. For implementing \cite{Kuhlmann2006} the games have to be finite, deterministic and of complete information.
+
